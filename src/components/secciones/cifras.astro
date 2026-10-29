@@ -1,0 +1,29 @@
+---
+// Cifras: banda naranja atardecer a todo el ancho con `items: [{titulo, texto}]` (titulo = la cifra como cadena,
+// «18», «+60», «24 h»; texto = qué cuenta) en 2 columnas en móvil y 4 en escritorio, separadas por líneas.
+// Sin cifras no se pinta (la plataforma nunca las inventa).
+import { seccion, cadena } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = (s?.items ?? []).filter((it) => cadena(it.titulo));
+const columnas = lista.length >= 4 ? 'lg:grid-cols-4' : lista.length === 3 ? 'lg:grid-cols-3' : '';
+---
+
+{
+  s && lista.length > 0 && (
+    <Seccion id={id} banda="sol" class="!py-16 md:!py-24">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      <ul class:list={['grid grid-cols-2 gap-x-6 gap-y-10 border-t-2 border-texto/80 pt-10', columnas]}>
+        {lista.map((it) => (
+          <li class="min-w-0">
+            <p class="cifra">{it.titulo}</p>
+            {it.texto && <p class="rotulo mt-3 !text-[.85rem] leading-snug">{it.texto}</p>}
+          </li>
+        ))}
+      </ul>
+    </Seccion>
+  )
+}

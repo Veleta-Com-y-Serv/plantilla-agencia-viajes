@@ -1,0 +1,93 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: agencia-viajes
+nombre: Agencia de viajes
+descripcion: "Web aventurera a todo el ancho para agencias de viajes, guías y excursiones, con salidas y presupuesto."
+sectores:
+  - { id: agencia-viajes, nombre: Agencia de viajes }
+  - { id: turismo, nombre: Turismo }
+  - { id: excursiones, nombre: Excursiones }
+  - { id: guia-turistico, nombre: Guía turístico }
+  - { id: rutas, nombre: Rutas }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: viajes, nombre: Viajes y salidas }
+  - { id: ventajas, nombre: Por qué con nosotros }
+  - { id: cifras, nombre: Cifras }
+  - { id: proceso, nombre: Cómo trabajamos }
+  - { id: destinos, nombre: Destinos }
+  - { id: cta, nombre: Llamada a la acción }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: presupuesto, nombre: Presupuesto }
+  - { id: contacto, nombre: Contacto }
+estilo: aventurero
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-agencia-viajes.noexpertise.com
+activa: true
+orden: 310
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu agencia"
+    pregunta: "¿Cómo se llama tu agencia y qué tipo de viajes organizas?"
+    ayuda: "Escapadas, aventura, grupos, viajes a medida, excursiones de un día… y desde dónde salís."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está la agencia y cómo te pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: viajes
+    titulo: "Tus viajes"
+    pregunta: "Cuéntame los viajes o salidas que quieres enseñar: destino, cuántos días, la fecha si la hay y el precio si quieres. Uno por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido, con su foto."
+    tipo: lista
+    campos: [secciones.viajes.viajes]
+  - id: ventajas
+    titulo: "Por qué contigo"
+    pregunta: "¿Qué te hace distinto de otras agencias? Trato, destinos que conoces, asistencia…"
+    tipo: texto
+    campos: [secciones.ventajas.titulo, secciones.ventajas.texto, secciones.ventajas.items]
+  - id: destinos
+    titulo: "Tus destinos"
+    pregunta: "¿Qué destinos o regiones conoces mejor y más te piden? Uno por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.destinos.items]
+  - id: proceso
+    titulo: "Cómo trabajas"
+    pregunta: "¿Cómo es preparar un viaje contigo, paso a paso?"
+    tipo: texto
+    campos: [secciones.proceso.titulo, secciones.proceso.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué te preguntan más a menudo? Seguros, pagos, antelación, documentación… Escribe cada pregunta y lo que respondes."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: presupuesto
+    titulo: "Pedir presupuesto"
+    pregunta: "¿Qué tipos de viaje te pueden pedir desde el formulario?"
+    ayuda: "Por ejemplo: escapada, viaje a medida, salida en grupo, luna de miel."
+    tipo: texto
+    campos: [secciones.presupuesto.titulo, secciones.presupuesto.texto, secciones.presupuesto.tipos_viaje]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, las de tus viajes, tus destinos y la agencia."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.ventajas.imagen, secciones.cta.imagen, secciones.presupuesto.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

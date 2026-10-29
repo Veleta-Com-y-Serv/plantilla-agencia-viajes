@@ -1,0 +1,41 @@
+---
+// Llamada a la acción: banda a todo el ancho con foto a sangre (`imagen`, panorámica) bajo un velo de atardecer,
+// título enorme centrado, `texto`, `cta` y `cta_secundario`. Sin foto, banda naranja atardecer.
+// Sin título ni botón no se pinta.
+import { seccion, enlace } from '../../data/site';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+import { altSeccion } from '../../lib/seo';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+const cta2 = enlace(s?.cta_secundario);
+const externo = (u: string) => /^https?:/.test(u);
+---
+
+{
+  s && (s.titulo || cta) && (
+    <section id={id} class:list={['banda relative isolate overflow-hidden', s.imagen ? 'banda--hondo oscura' : 'banda--sol']}>
+      {s.imagen && (
+        <>
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1920} alto={820} respaldo="/placeholders/hero.svg" class="absolute inset-0 -z-20 h-full w-full object-cover" />
+          <span class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--hondo)_88%,transparent),color-mix(in_srgb,var(--hondo)_35%,transparent)),linear-gradient(to_right,color-mix(in_srgb,var(--c-acento)_30%,transparent),transparent)]" aria-hidden="true" />
+        </>
+      )}
+      <div class="contenedor py-24 text-center md:py-36 lg:py-44">
+        {s.antetitulo && <p class="antetitulo justify-center">{s.antetitulo}</p>}
+        {s.titulo && <h2 class="titulo-hero mx-auto mt-5 max-w-[16ch] !text-[clamp(2.6rem,8.5vw,7rem)]">{s.titulo}</h2>}
+        {s.texto && <p class:list={['mx-auto mt-6 max-w-[38rem] text-lg md:text-xl', s.imagen ? 'text-fondo/90' : 'suave']}>{s.texto}</p>}
+        {(cta || cta2) && (
+          <div class="mt-10 flex flex-wrap justify-center gap-3">
+            {cta && <a class="btn" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={20} /></a>}
+            {cta2 && (
+              <a class="btn-sec" href={cta2.url} {...(externo(cta2.url) ? { rel: 'noopener', target: '_blank' } : {})}>{cta2.texto}</a>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

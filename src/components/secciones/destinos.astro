@@ -1,0 +1,51 @@
+---
+// Destinos: banda océano hondo con titular partido y, debajo, las fotos de `items: [{titulo, texto, imagen, url?}]`
+// en columnas verticales de borde a borde de la ventana, sin margen (2 en móvil, una por destino hasta 4 en
+// escritorio), con el nombre en mayúsculas grandes sobre un velo. Sin imagen, el dibujo de respaldo.
+// Con `url`, cada destino es un enlace. Sin destinos solo queda el titular. `cta` opcional.
+import { seccion, cadena, enlace } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = (s?.items ?? []).filter((it) => cadena(it.titulo));
+const n = lista.length;
+const columnas = n >= 4 ? 'grid-cols-2 lg:grid-cols-4' : n === 3 ? 'grid-cols-2 lg:grid-cols-3' : n === 2 ? 'grid-cols-2' : 'grid-cols-1';
+const cta = enlace(s?.cta);
+---
+
+{
+  s && (n > 0 || s.titulo) && (
+    <Seccion id={id} banda="hondo" sinContenedor>
+      <div class="contenedor pt-[var(--ritmo)] md:pt-[var(--ritmo-md)]">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      </div>
+      {n > 0 && (
+        <ul class:list={['grid', columnas]}>
+          {lista.map((it, i) => {
+            const Etiqueta = cadena(it.url) ? 'a' : 'div';
+            return (
+              <li class:list={[n % 2 === 1 && i === n - 1 && 'col-span-2 lg:col-span-1']}>
+                <Etiqueta class="destino no-underline" {...(cadena(it.url) ? { href: it.url } : {})}>
+                  <Imagen src={it.imagen || '/placeholders/destino.svg'} alt={altFicha(it)} ancho={720} alto={960} respaldo="/placeholders/destino.svg" />
+                  <div class="destino-texto">
+                    <p class="rotulo text-[color:var(--sol-claro)]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+                    <h3 class="mt-1 text-[clamp(1.6rem,3.4vw,3.1rem)]">{it.titulo}</h3>
+                    {it.texto && <p class="mt-1.5 text-[.95rem] text-fondo/85 md:text-base">{it.texto}</p>}
+                  </div>
+                </Etiqueta>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {cta ? (
+        <div class="contenedor py-12 md:py-16"><a class="btn" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={20} /></a></div>
+      ) : n === 0 && <div class="pb-[var(--ritmo)]" />}
+    </Seccion>
+  )
+}

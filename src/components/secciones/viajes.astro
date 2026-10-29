@@ -1,0 +1,110 @@
+---
+// Viajes y salidas: `viajes: [{titulo, destino, categoria, duracion, fecha, precio, texto, incluye, imagen, destacado}]`
+// como billetes de embarque (foto arriba, talón troquelado, duración y fecha, precio y botón) en una rejilla de
+// 1/2/3 columnas sobre banda de arena. Filtro por tipo de viaje (`categoria`) si hay dos o más tipos: botones con
+// un JavaScript mínimo; sin JavaScript se ven todos. `destacado: true` lleva el sello `etiqueta_destacado`.
+// El botón de cada viaje va al WhatsApp del negocio con el viaje en el mensaje, o a `cta.url` si no hay WhatsApp.
+// Sin viajes solo queda el titular (o nada si tampoco hay título). Sin precio no hay precio.
+import { seccion, site, cadena, partes, enlace, whatsapp } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const viajes = s?.viajes ?? [];
+const tipos = [...new Set(viajes.map((v) => v.categoria).filter(Boolean))];
+const cta = enlace(s?.cta);
+const sello = cadena(s?.etiqueta_destacado) || 'Destacado';
+const wa = site.contacto.whatsapp;
+const destino = (v: (typeof viajes)[number]) =>
+  wa ? whatsapp(wa, `Hola, me interesa el viaje «${v.titulo}». ¿Me dais más información?`) : cta?.url || '#contacto';
+const columnas = viajes.length >= 3 ? 'md:grid-cols-2 xl:grid-cols-3' : viajes.length === 2 ? 'md:grid-cols-2' : 'max-w-xl';
+---
+
+{
+  s && (viajes.length > 0 || s.titulo) && (
+    <Seccion id={id} banda="arena">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {tipos.length > 1 && (
+        <div class="filtro" role="group" aria-label="Filtrar por tipo de viaje" data-filtro={id} hidden>
+          <button type="button" aria-pressed="true" data-tipo="">Todos</button>
+          {tipos.map((t) => <button type="button" aria-pressed="false" data-tipo={t}>{t}</button>)}
+        </div>
+      )}
+      {viajes.length > 0 && (
+        <ul class:list={['billetes gap-4 md:grid md:gap-6 lg:gap-8', columnas]} data-viajes={id} tabindex="0" aria-label={s.titulo || s.antetitulo || undefined}>
+          {viajes.map((v) => {
+            const incluye = partes(v.incluye);
+            return (
+              <li data-tipo={v.categoria}>
+                <article class:list={['billete', v.destacado && 'billete--destacado']}>
+                  <div class="relative aspect-[4/3] overflow-hidden bg-primario">
+                    {v.imagen ? (
+                      <Imagen src={v.imagen} alt={altFicha(v)} ancho={900} alto={675} respaldo="/placeholders/viaje.svg" class="h-full w-full object-cover" />
+                    ) : (
+                      <img src="/placeholders/viaje.svg" alt="" aria-hidden="true" width="900" height="675" class="h-full w-full object-cover" loading="lazy" />
+                    )}
+                    {v.destacado && <span class="billete-sello">{sello}</span>}
+                    {v.categoria && <span class="rotulo absolute right-4 bottom-4 rounded bg-texto/80 px-2.5 py-1 text-fondo">{v.categoria}</span>}
+                  </div>
+                  <div class="flex flex-1 flex-col px-5 pt-5 pb-6 md:px-6">
+                    {v.destino && (
+                      <p class="rotulo inline-flex items-center gap-2 text-[color:var(--sol-texto)]"><Icono nombre="avion" tam={16} />{v.destino}</p>
+                    )}
+                    <h3 class="mt-2 text-[1.9rem] md:text-[2.15rem]">{v.titulo}</h3>
+                    {v.texto && <p class="suave mt-3">{v.texto}</p>}
+                    {incluye.length > 0 && (
+                      <ul class="mt-4 grid gap-1.5 text-[.95rem]">
+                        {incluye.map((x) => (
+                          <li class="flex gap-2"><Icono nombre="check" tam={18} class="mt-0.5 shrink-0 text-[color:var(--sol-texto)]" />{x}</li>
+                        ))}
+                      </ul>
+                    )}
+                    <div class="mt-auto pt-6">
+                      <div class="billete-corte" aria-hidden="true" />
+                      <div class="flex flex-wrap items-end justify-between gap-x-4 gap-y-3 pt-5">
+                        <div class="grid gap-1 text-[.95rem]">
+                          {v.duracion && <span class="inline-flex items-center gap-2"><Icono nombre="reloj" tam={17} /><span class="sr-only">Duración: </span>{v.duracion}</span>}
+                          {v.fecha && <span class="inline-flex items-center gap-2"><Icono nombre="calendario" tam={17} /><span class="sr-only">Fecha: </span>{v.fecha}</span>}
+                        </div>
+                        {v.precio && <p class="billete-precio">{v.precio}</p>}
+                      </div>
+                      <a class="btn mt-5 w-full" href={destino(v)} {...(wa ? { rel: 'noopener', target: '_blank' } : {})}>
+                        {wa ? <Icono nombre="whatsapp" tam={20} /> : null}
+                        <span>Lo quiero<span class="sr-only">: {v.titulo}</span></span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {cta && (
+        <p class="mt-12 text-center">
+          <a class="btn-sec" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={20} /></a>
+        </p>
+      )}
+    </Seccion>
+  )
+}
+
+<script is:inline>
+  document.querySelectorAll('[data-filtro]').forEach(function (f) {
+    var lista = document.querySelector('[data-viajes="' + f.getAttribute('data-filtro') + '"]');
+    if (!lista) return;
+    f.hidden = false;
+    f.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      var tipo = b.getAttribute('data-tipo');
+      f.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      lista.querySelectorAll(':scope > li').forEach(function (li) { li.hidden = !!tipo && li.getAttribute('data-tipo') !== tipo; });
+      lista.scrollLeft = 0;
+    });
+  });
+</script>

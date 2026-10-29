@@ -1,0 +1,83 @@
+---
+// Portada a pantalla completa: foto a sangre (`imagen`) con velo de océano y atardecer, `antetitulo` con línea,
+// título enorme en mayúsculas estrechas, `texto`, `cta` y `cta_secundario`. La cabecera va transparente encima.
+// En escritorio, a la derecha, el billete de la «próxima salida»: el primer viaje con `destacado: true` de la
+// sección `viajes` (si está activa). Debajo, la franja naranja con los destinos de esos viajes.
+// Sin imagen: océano con un sol naranja y líneas de horizonte. Todo sale de site.yaml.
+import { seccion, enlace, site, cadena } from '../../data/site';
+import type { Viaje } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+const cta2 = enlace(s?.cta_secundario);
+
+// Viajes de la web (cualquier sección activa con lista `viajes`): destacado y destinos para la franja.
+const viajes: Viaje[] = Object.values(site.secciones).filter((x) => x.activa).flatMap((x) => x.viajes);
+const destacado = viajes.find((v) => v.destacado) ?? null;
+const destinos = [...new Set(viajes.map((v) => v.destino || v.titulo).filter(Boolean))];
+const anclaViajes = Object.entries(site.secciones).find(([, x]) => x.activa && x.viajes.length > 0)?.[0];
+const etiqueta = cadena(anclaViajes ? site.secciones[anclaViajes].etiqueta_destacado : '') || 'Próxima salida';
+---
+
+{
+  s && (
+    <section id={id} data-bajo-cabecera class:list={['banda oscura relative isolate flex min-h-[88svh] flex-col overflow-hidden text-fondo md:min-h-[100svh]', !s.imagen && 'hero-sin-foto']}>
+      {s.imagen && (
+        <>
+          <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} respaldo="/placeholders/hero.svg" class="absolute inset-0 -z-20 h-full w-full object-cover" />
+          <span class="hero-velo absolute inset-0 -z-10" aria-hidden="true" />
+        </>
+      )}
+      <div class="contenedor relative flex flex-1 flex-col justify-end pt-[calc(var(--alto-cabecera)+3rem)] pb-12 md:pb-16 lg:pb-20">
+        <div class="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
+          <div>
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h1 class="titulo-hero mt-5 max-w-[14ch]">{s.titulo}</h1>}
+            {s.texto && <p class="mt-6 max-w-[38rem] text-lg text-fondo/90 md:text-xl">{s.texto}</p>}
+            {(cta || cta2) && (
+              <div class="mt-9 flex flex-wrap gap-3">
+                {cta && <a class="btn" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={20} /></a>}
+                {cta2 && <a class="btn-sec" href={cta2.url}>{cta2.texto}</a>}
+              </div>
+            )}
+          </div>
+          {destacado && (
+            <a href={anclaViajes ? `#${anclaViajes}` : '#'} class="billete-hero hidden no-underline lg:block">
+              <div class="flex items-center justify-between px-6 pt-5">
+                <span class="rotulo text-[color:var(--sol-texto)]">{etiqueta}</span>
+                <Icono nombre="avion" tam={22} class="text-[color:var(--sol-texto)]" />
+              </div>
+              <p class="din mt-3 px-6 text-[2.4rem] font-bold uppercase leading-[.9]">{destacado.destino || destacado.titulo}</p>
+              {destacado.destino && <p class="suave mt-2 px-6">{destacado.titulo}</p>}
+              <div class="billete-corte mt-5" aria-hidden="true" />
+              <div class="flex items-end justify-between gap-4 px-6 pt-4 pb-5">
+                <div class="grid gap-1 text-sm">
+                  {destacado.duracion && <span class="inline-flex items-center gap-2"><Icono nombre="reloj" tam={16} />{destacado.duracion}</span>}
+                  {destacado.fecha && <span class="inline-flex items-center gap-2"><Icono nombre="calendario" tam={16} />{destacado.fecha}</span>}
+                </div>
+                {destacado.precio && <span class="billete-precio text-right">{destacado.precio}</span>}
+              </div>
+            </a>
+          )}
+        </div>
+      </div>
+      {destinos.length > 1 && (
+        <div class="franja relative" aria-hidden="true">
+          <div class="franja-pista">
+            {[0, 1].map(() => (
+              <ul>
+                {[...destinos, ...destinos].map((d) => (
+                  <li>{d}<Icono nombre="avion" tam={20} /></li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}

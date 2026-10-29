@@ -1,0 +1,226 @@
+/* Agencia de viajes — estilo aventurero: «panel de salidas y billete de embarque».
+   Bandas a todo el ancho que alternan océano hondo, arena y naranja atardecer; fotos a sangre; títulos en
+   mayúsculas estrechas tipo señalética de aeropuerto (DIN del sistema: Bahnschrift, DIN Alternate…); viajes
+   como billetes con talón troquelado; ruta punteada como hilo conductor.
+   Todos los colores salen de las variables de site.yaml (--c-primario, --c-acento, --c-fondo, --c-texto). */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: "Bahnschrift", "DIN Alternate", "DIN Condensed", "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Segoe UI", system-ui, sans-serif;
+  --radio: .35rem; --ritmo: 4.5rem; --ritmo-md: 7.5rem; --ancho: 90rem;
+  --alto-cabecera: 4.25rem;
+
+  --oceano: var(--c-primario);
+  --hondo: color-mix(in srgb, var(--c-primario) 52%, #000);
+  --sol: var(--c-acento);
+  --arena: var(--c-fondo);
+  --arena-2: color-mix(in srgb, color-mix(in srgb, var(--c-fondo) 92%, var(--c-acento)) 94%, var(--c-texto));
+  --papel: color-mix(in srgb, var(--c-fondo) 40%, #fff);
+  --tinta: var(--c-texto);
+  --suave: color-mix(in srgb, var(--c-texto) 74%, var(--c-fondo));
+  --linea: color-mix(in srgb, var(--c-texto) 16%, transparent);
+  --sol-texto: color-mix(in srgb, var(--c-acento) 60%, var(--c-texto));
+  --sol-claro: color-mix(in srgb, var(--c-acento) 50%, var(--c-fondo));
+  --claro: var(--c-fondo);
+  --claro-suave: color-mix(in srgb, var(--c-fondo) 80%, var(--c-primario));
+  --banda-fondo: var(--arena);
+}
+@media (min-width: 1024px) { :root { --alto-cabecera: 5rem; } }
+
+@layer base {
+  html { scroll-padding-top: calc(var(--alto-cabecera) + 1rem); }
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.65; background: var(--arena); }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 700; font-stretch: condensed; text-transform: uppercase; letter-spacing: -.005em; line-height: .95; }
+  ::selection { background: var(--sol); color: var(--tinta); }
+  /* Las páginas sin portada (aviso legal, 404) dejan sitio a la cabecera fija. */
+  main > :first-child:not([data-bajo-cabecera]) { margin-top: var(--alto-cabecera); }
+}
+
+@layer components {
+  /* ── Bandas ─────────────────────────────────────────────────────────────── */
+  .banda { position: relative; }
+  .banda--arena { --banda-fondo: var(--arena); background: var(--arena); color: var(--tinta); }
+  .banda--arena2 { --banda-fondo: var(--arena-2); background: var(--arena-2); color: var(--tinta); }
+  .banda--papel { --banda-fondo: var(--papel); background: var(--papel); color: var(--tinta); }
+  .banda--oceano { --banda-fondo: var(--oceano); background: var(--oceano); color: var(--claro); }
+  .banda--hondo { --banda-fondo: var(--hondo); background: var(--hondo); color: var(--claro); }
+  .banda--sol { --banda-fondo: var(--sol); background: var(--sol); color: var(--tinta); }
+  .oscura .suave, .banda--oceano .suave, .banda--hondo .suave { color: var(--claro-suave); }
+  .oscura .antetitulo, .banda--oceano .antetitulo, .banda--hondo .antetitulo { color: var(--sol-claro); }
+  .banda--sol .antetitulo { color: var(--tinta); }
+  .banda--sol .antetitulo::before { background: var(--tinta); }
+  .banda--sol .suave { color: color-mix(in srgb, var(--c-texto) 82%, var(--c-acento)); }
+  .oscura, .banda--oceano, .banda--hondo { color-scheme: dark; }
+
+  .suave { color: var(--suave); }
+  .din { font-family: var(--fuente-titulos); font-stretch: condensed; }
+  .rotulo { font-family: var(--fuente-titulos); font-weight: 600; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; }
+
+  /* ── Titulares ──────────────────────────────────────────────────────────── */
+  .antetitulo { display: inline-flex; align-items: center; gap: .75rem; font-family: var(--fuente-titulos); font-weight: 600; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sol-texto); }
+  .antetitulo::before { content: ""; width: 2.25rem; height: 3px; background: var(--sol); flex-shrink: 0; }
+  .titulo-seccion { font-size: clamp(2.4rem, 6.4vw, 5.4rem); margin-top: .9rem; }
+  .titulo-hero { font-size: clamp(2.85rem, 10.5vw, 8.25rem); line-height: .88; }
+  .titular { margin-bottom: 2.75rem; }
+  .titular-texto { margin-top: 1.1rem; font-size: 1.125rem; max-width: 40rem; }
+  @media (min-width: 1024px) {
+    .titular { margin-bottom: 4rem; }
+    .titular--partido { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 4rem; align-items: end; }
+    .titular--partido .titular-texto { margin-top: 0; padding-bottom: .4rem; }
+  }
+  .titular--centro { text-align: center; margin-inline: auto; max-width: 62rem; }
+  .titular--centro .titular-texto { margin-inline: auto; }
+
+  /* ── Botones: rótulos rectos en mayúsculas estrechas ────────────────────── */
+  .btn, .btn-sec, .btn-claro { font-family: var(--fuente-titulos); font-stretch: condensed; font-size: 1rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border-radius: var(--radio); min-height: 3rem; padding: .8rem 1.6rem; }
+  .btn { background: var(--sol); color: var(--tinta); }
+  .btn:hover { background: color-mix(in srgb, var(--c-acento) 84%, #fff); }
+  .btn-sec { border: 2px solid currentColor; color: inherit; }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+  .btn-claro { background: var(--claro); color: var(--tinta); }
+  .btn-claro:hover { background: var(--papel); }
+  .banda--sol .btn { background: var(--tinta); color: var(--claro); }
+  .banda--sol .btn:hover { background: color-mix(in srgb, var(--c-texto) 82%, var(--c-acento)); }
+  .flecha { transition: transform .2s; }
+  a:hover > .flecha { transform: translateX(4px); }
+
+  /* ── Cabecera fija: transparente sobre la portada, sólida al bajar ──────── */
+  .cabecera--viajes { position: fixed; inset: 0 0 auto 0; color: var(--claro); background: linear-gradient(to bottom, rgb(0 0 0 / .5), rgb(0 0 0 / 0)); transition: background-color .25s, box-shadow .25s; }
+  .cabecera--viajes.solida { background: var(--hondo); box-shadow: 0 1px 0 color-mix(in srgb, var(--c-fondo) 12%, transparent); }
+  .cabecera--viajes .cabecera-fila { min-height: var(--alto-cabecera); max-width: var(--ancho); }
+  .cabecera--viajes .marca { gap: .65rem; }
+  .cabecera--viajes .marca-inicial { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex-shrink: 0; border-radius: 50%; background: var(--sol); color: var(--tinta); }
+  .cabecera--viajes .marca-nombre { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.15rem; letter-spacing: .08em; text-transform: uppercase; }
+  .cabecera--viajes .marca-logo { height: 2.75rem; }
+  .cabecera--viajes .cabecera-nav { display: none; gap: 1.75rem; }
+  .cabecera--viajes .cabecera-nav a { font-family: var(--fuente-titulos); font-weight: 600; font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; padding-block: .5rem; border-bottom: 2px solid transparent; }
+  .cabecera--viajes .cabecera-nav a:hover { border-bottom-color: var(--sol); }
+  .cabecera--viajes .cabecera-cta { display: none; min-height: 2.75rem; padding: .55rem 1.1rem; font-size: .92rem; }
+  .cabecera--viajes .menu-movil { display: block; }
+  .cabecera--viajes .menu-movil summary { min-height: 2.75rem; font-family: var(--fuente-titulos); font-size: .85rem; letter-spacing: .16em; text-transform: uppercase; }
+  .cabecera--viajes .menu-movil-panel { background: var(--hondo); color: var(--claro); padding: .5rem 1rem 1.5rem; box-shadow: 0 18px 30px rgb(0 0 0 / .25); }
+  .cabecera--viajes .menu-movil-panel a { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.6rem; text-transform: uppercase; letter-spacing: .02em; padding: .7rem 0; border-bottom-color: color-mix(in srgb, var(--c-fondo) 14%, transparent); }
+  .cabecera--viajes .menu-movil-panel .btn { font-size: 1rem; margin-top: 1rem; }
+  @media (min-width: 640px) { .cabecera--viajes .cabecera-cta { display: inline-flex; } }
+  @media (min-width: 900px) { .cabecera--viajes .cabecera-nav { display: none; } }
+  @media (min-width: 1180px) {
+    .cabecera--viajes .cabecera-nav { display: flex; margin-left: auto; margin-right: 1.5rem; }
+    .cabecera--viajes .menu-movil { display: none; }
+    .cabecera--viajes .marca-nombre { font-size: 1.3rem; }
+  }
+
+  /* ── Portada ────────────────────────────────────────────────────────────── */
+  .hero-velo { background:
+      linear-gradient(to top, color-mix(in srgb, var(--hondo) 92%, transparent) 0%, color-mix(in srgb, var(--hondo) 55%, transparent) 38%, rgb(0 0 0 / .08) 70%, rgb(0 0 0 / .3) 100%),
+      linear-gradient(to right, color-mix(in srgb, var(--c-acento) 28%, transparent), transparent 55%); }
+  .hero-sin-foto { background:
+      radial-gradient(circle at 78% 78%, var(--sol) 0 9rem, transparent 9.05rem),
+      linear-gradient(to bottom, var(--oceano), var(--hondo)); }
+  .hero-sin-foto::after { content: ""; position: absolute; inset: auto 0 0 0; height: 38%; background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--c-fondo) 14%, transparent) 0 2px, transparent 2px 22px); pointer-events: none; }
+
+  /* Billete «próxima salida» sobre la portada */
+  .billete-hero { --pad: 0rem; --banda-fondo: color-mix(in srgb, var(--hondo) 90%, transparent); width: 22rem; overflow: hidden; background: var(--papel); color: var(--tinta); border-radius: .9rem; box-shadow: 0 30px 60px rgb(0 0 0 / .35); }
+
+  .billete-hero .suave { color: var(--suave); }
+
+  /* Franja de destinos que pasa bajo la portada (solo se mueve dentro de sí misma) */
+  .franja { overflow: hidden; background: var(--sol); color: var(--tinta); }
+  .franja-pista { display: flex; width: max-content; animation: franja 48s linear infinite; }
+  .franja-pista ul { display: flex; flex-shrink: 0; }
+  .franja-pista li { display: flex; align-items: center; gap: 1.5rem; padding: .95rem 0 .95rem 1.5rem; white-space: nowrap; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.25rem; letter-spacing: .06em; text-transform: uppercase; }
+  @media (min-width: 1024px) { .franja-pista li { font-size: 1.6rem; padding-block: 1.15rem; } }
+  @keyframes franja { to { transform: translateX(-50%); } }
+
+  /* ── Billetes (viajes) ──────────────────────────────────────────────────── */
+  .billete { --pad: 1.25rem; position: relative; display: flex; flex-direction: column; height: 100%; background: var(--papel); color: var(--tinta); border-radius: .9rem; overflow: hidden; }
+  @media (min-width: 768px) { .billete { --pad: 1.5rem; } }
+  /* Talón troquelado: línea de puntos de borde a borde con dos muescas del color de la banda */
+  .billete-corte { position: relative; height: 2px; margin-inline: calc(-1 * var(--pad, 0rem)); padding-inline: 1.4rem; background: repeating-linear-gradient(to right, color-mix(in srgb, var(--c-texto) 28%, transparent) 0 9px, transparent 9px 16px) content-box; }
+  .billete-corte::before, .billete-corte::after { content: ""; position: absolute; top: calc(50% - .9rem); width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--banda-fondo); }
+  .billete-corte::before { left: -.9rem; }
+  .billete-corte::after { right: -.9rem; }
+  .billete-sello { position: absolute; top: 1rem; left: 1rem; padding: .35rem .7rem; background: var(--sol); color: var(--tinta); border-radius: .25rem; font-family: var(--fuente-titulos); font-weight: 700; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+  .billete--destacado { outline: 3px solid var(--sol); outline-offset: -3px; }
+  .billete-precio { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.75rem; line-height: 1; }
+  .billete img { transition: transform .5s ease; }
+  .billete:hover img { transform: scale(1.04); }
+
+  /* En móvil los billetes pasan en horizontal (solo se desplaza la lista, nunca la página) */
+  @media (max-width: 767.98px) {
+    .billetes { display: flex; gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; margin-inline: -1rem; padding: .25rem 1rem 1.25rem; scroll-padding-inline: 1rem; scrollbar-width: thin; scrollbar-color: var(--sol) transparent; }
+    .billetes > li { flex: 0 0 86%; scroll-snap-align: start; }
+    .billetes > li:only-child { flex-basis: 100%; }
+  }
+
+  /* Filtro por tipo de viaje (etiquetas de equipaje) */
+  .filtro { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2.5rem; }
+  .filtro button { min-height: 2.75rem; padding: .5rem 1.15rem; border: 2px solid var(--tinta); border-radius: 999px; font-family: var(--fuente-titulos); font-weight: 600; font-size: .85rem; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; background: transparent; color: inherit; }
+  .filtro button[aria-pressed="true"] { background: var(--tinta); color: var(--arena); }
+  .filtro button:hover { border-color: var(--sol); }
+
+  /* ── Ventajas, cifras ───────────────────────────────────────────────────── */
+  .icono-sol { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; flex-shrink: 0; border-radius: 50%; border: 2px solid var(--sol); color: var(--sol-claro); }
+  .banda--arena .icono-sol, .banda--arena2 .icono-sol, .banda--papel .icono-sol { color: var(--sol-texto); }
+  .cifra { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: clamp(3.6rem, 11vw, 7.5rem); line-height: .85; letter-spacing: -.02em; }
+
+  /* ── Proceso: ruta punteada con paradas ─────────────────────────────────── */
+  .ruta { position: relative; display: grid; gap: 2.5rem; }
+  .ruta > li { position: relative; padding-left: 4.5rem; }
+  .ruta > li::before { content: ""; position: absolute; left: 1.55rem; top: 3.4rem; bottom: -2.5rem; border-left: 2px dashed color-mix(in srgb, var(--c-texto) 30%, transparent); }
+  .ruta > li:last-child::before { display: none; }
+  .ruta-parada { position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; background: var(--oceano); color: var(--claro); }
+  .ruta-num { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 3.5rem; line-height: .8; color: var(--sol-texto); }
+  @media (min-width: 900px) {
+    .ruta { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 2rem; }
+    .ruta > li { padding-left: 0; padding-top: 5.5rem; }
+    .ruta > li::before { left: 3.75rem; right: -2rem; top: 1.6rem; bottom: auto; border-left: 0; border-top: 2px dashed color-mix(in srgb, var(--c-texto) 30%, transparent); }
+  }
+
+  /* ── Destinos: columnas de fotos de borde a borde ───────────────────────── */
+  .destino { position: relative; display: block; overflow: hidden; min-height: 17rem; color: var(--claro); }
+  .destino img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .destino::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, color-mix(in srgb, var(--hondo) 88%, transparent), transparent 60%); }
+  .destino:hover img { transform: scale(1.05); }
+  .destino-texto { position: absolute; inset: auto 0 0 0; z-index: 1; padding: 1.25rem 1rem 1.25rem; }
+  @media (min-width: 768px) { .destino { min-height: 34rem; } .destino-texto { padding: 2rem 1.75rem 2.25rem; } }
+  @media (min-width: 1280px) { .destino { min-height: 42rem; } }
+
+  /* ── Opiniones ──────────────────────────────────────────────────────────── */
+  .cita-grande { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; font-size: clamp(1.9rem, 4.6vw, 3.9rem); line-height: 1.02; }
+  .comillas { font-family: Georgia, serif; font-size: 7rem; line-height: .7; color: var(--sol); }
+  .opinion { border-top: 3px solid var(--sol); padding-top: 1.5rem; }
+
+  /* ── Preguntas ──────────────────────────────────────────────────────────── */
+  .preguntas details { border-bottom: 2px solid var(--linea); }
+  .preguntas details:first-child { border-top: 2px solid var(--linea); }
+  .preguntas summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 3.5rem; padding-block: 1.15rem; font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.35rem; line-height: 1.15; text-transform: uppercase; }
+  .preguntas summary::-webkit-details-marker { display: none; }
+  .preguntas summary::after { content: "+"; display: grid; place-items: center; flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--sol); color: var(--tinta); font-family: var(--fuente-texto); font-size: 1.4rem; font-weight: 500; transition: transform .2s; }
+  .preguntas details[open] summary::after { transform: rotate(45deg); }
+  .preguntas details > div { padding-bottom: 1.4rem; color: var(--suave); max-width: 46rem; }
+
+  /* ── Formulario ─────────────────────────────────────────────────────────── */
+  .formulario .campo label { font-family: var(--fuente-titulos); font-weight: 600; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; }
+  .formulario .campo input, .formulario .campo textarea, .formulario .campo select { width: 100%; min-height: 3rem; font: inherit; color: inherit; padding: .7rem .85rem; border: 2px solid color-mix(in srgb, currentColor 26%, transparent); border-radius: var(--radio); background: color-mix(in srgb, currentColor 6%, transparent); }
+  .formulario .campo input:focus, .formulario .campo textarea:focus, .formulario .campo select:focus { border-color: var(--sol); outline: none; }
+  .formulario .campo select option { background: var(--c-fondo); color: var(--c-texto); }
+  .formulario .campo-check a { text-decoration: underline; }
+  .formulario-aviso { opacity: .8; }
+
+  /* ── Pie ────────────────────────────────────────────────────────────────── */
+  .pie--viajes { background: var(--hondo); color: var(--claro); padding-top: 4.5rem; overflow: hidden; }
+  .pie--viajes .pie-rejilla { gap: 2.5rem; }
+  @media (min-width: 768px) { .pie--viajes .pie-rejilla { grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr; } }
+  .pie--viajes .pie-titulo { font-family: var(--fuente-titulos); font-weight: 600; letter-spacing: .18em; color: var(--sol-claro); opacity: 1; }
+  .pie--viajes .pie-eslogan { color: var(--claro-suave); opacity: 1; }
+  .pie--viajes .pie-lista a:hover { color: var(--sol-claro); }
+  .pie--viajes .pie-redes a { border: 2px solid color-mix(in srgb, var(--c-fondo) 25%, transparent); border-radius: 50%; padding: .6rem; }
+  .pie--viajes .pie-redes a:hover { border-color: var(--sol); }
+  .pie-gigante { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; line-height: .8; font-size: clamp(3rem, 13vw, 12rem); letter-spacing: -.02em; color: color-mix(in srgb, var(--c-fondo) 9%, transparent); white-space: nowrap; }
+  .pie--viajes .pie-legal { border-top-color: color-mix(in srgb, var(--c-fondo) 15%, transparent); opacity: .85; }
+
+  .texto-largo h2 { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; text-transform: uppercase; font-size: 1.6rem; }
+}

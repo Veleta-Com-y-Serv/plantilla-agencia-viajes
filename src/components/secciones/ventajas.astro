@@ -1,0 +1,65 @@
+---
+// Por qué con nosotros: banda océano. Con `imagen`, fila 50/50 a sangre: la foto toca el borde izquierdo de la
+// ventana y al lado van titular, `texto` e `items: [{titulo, texto, icono}]` en 2 columnas con icono en círculo
+// naranja. Sin imagen, titular partido e `items` en 4 columnas a todo el ancho. `cta` opcional.
+import { seccion, enlace } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const n = s?.items.length ?? 0;
+const cta = enlace(s?.cta);
+---
+
+{
+  s && (n > 0 || s.titulo || s.texto) && (
+    s.imagen ? (
+      <Seccion id={id} banda="oceano" sinContenedor>
+        <div class="grid lg:grid-cols-2">
+          <div class="relative min-h-[20rem] md:min-h-[28rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1000} alto={1250} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+          <div class="px-4 py-16 md:px-12 md:py-24 xl:px-20 xl:py-32">
+            <div class="max-w-[42rem]">
+              <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} forma="izq" />
+              {n > 0 && (
+                <ul class="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+                  {s.items.map((it) => (
+                    <li class="flex gap-4">
+                      <span class="icono-sol"><Icono nombre={it.icono} tam={24} /></span>
+                      <div>
+                        <h3 class="text-[1.55rem]">{it.titulo}</h3>
+                        {it.texto && <p class="suave mt-1.5">{it.texto}</p>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {cta && <p class="mt-12"><a class="btn" href={cta.url}>{cta.texto}</a></p>}
+            </div>
+          </div>
+        </div>
+      </Seccion>
+    ) : (
+      <Seccion id={id} banda="oceano">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {n > 0 && (
+          <ul class="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {s.items.map((it) => (
+              <li class="border-t-2 border-acento pt-6">
+                <span class="icono-sol"><Icono nombre={it.icono} tam={24} /></span>
+                <h3 class="mt-5 text-[1.6rem]">{it.titulo}</h3>
+                {it.texto && <p class="suave mt-1.5">{it.texto}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+        {cta && <p class="mt-12"><a class="btn" href={cta.url}>{cta.texto}</a></p>}
+      </Seccion>
+    )
+  )
+}

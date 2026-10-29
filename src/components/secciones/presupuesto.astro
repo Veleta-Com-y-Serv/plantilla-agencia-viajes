@@ -1,0 +1,58 @@
+---
+// Presupuesto: banda océano hondo. Con `imagen`, fila 50/50 a sangre: la foto toca el borde izquierdo de la ventana
+// (en móvil, franja arriba) y al lado van titular, `texto`, los pasos `items: [{titulo, texto}]` numerados y el
+// formulario (mailto) con destino, tipo de viaje, fechas de ida y vuelta, adultos y niños.
+// `tipos_viaje`: cadena separada por «;» con las opciones del desplegable (vacía = sin desplegable).
+// `boton`: texto del botón; `nota`: aviso pequeño bajo el formulario; `cta` opcional (p. ej. WhatsApp).
+import { seccion, cadena, partes, enlace } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const tipos = partes(s?.tipos_viaje);
+const boton = cadena(s?.boton) || 'Pedir presupuesto';
+const nota = cadena(s?.nota);
+const cta = enlace(s?.cta);
+const pasos = (s?.items ?? []).filter((it) => cadena(it.titulo));
+---
+
+{
+  s && (
+    <Seccion id={id} banda="hondo" sinContenedor>
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]']}>
+        {s.imagen && (
+          <div class="relative min-h-[16rem] md:min-h-[24rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1000} alto={1333} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+        <div class:list={['py-16 md:py-24 xl:py-28', s.imagen ? 'px-4 md:px-12 xl:px-20' : 'contenedor']}>
+          <div class:list={['grid gap-12', !s.imagen && 'lg:grid-cols-2 lg:gap-20']}>
+            <div>
+              <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} forma="izq" class="!mb-0" />
+              {pasos.length > 0 && (
+                <ol class="mt-10 grid gap-5 sm:grid-cols-3">
+                  {pasos.map((p, i) => (
+                    <li class="border-t-2 border-acento pt-4">
+                      <p class="din text-[2.2rem] font-bold leading-none text-[color:var(--sol-claro)]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+                      <p class="rotulo mt-2 !text-[.85rem]">{p.titulo}</p>
+                      {p.texto && <p class="suave mt-1 text-[.95rem]">{p.texto}</p>}
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+            <div>
+              <FormularioContacto viaje tipos={tipos} boton={boton} prefijo={`p-${id}`} asunto="Petición de presupuesto de viaje" />
+              {nota && <p class="suave mt-4 text-sm">{nota}</p>}
+              {cta && <p class="mt-6"><a class="btn-sec" href={cta.url}>{cta.texto}</a></p>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Seccion>
+  )
+}

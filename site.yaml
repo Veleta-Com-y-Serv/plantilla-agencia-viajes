@@ -1,0 +1,159 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios siempre entre comillas.
+nombre: Marea Alta Viajes
+eslogan: "Agencia de viajes en Santander: escapadas, aventura y viajes a medida."
+sector: agencia-viajes
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en mayúsculas con la brújula.
+colores:
+  primario: "#0b4f6c"
+  acento: "#f26b38"
+  fondo: "#f6efe2"
+  texto: "#10232e"
+contacto:
+  telefono: "942 31 08 64"
+  email: hola@mareaaltaviajes.es
+  direccion: "Calle Hernán Cortés 14, 39003 Santander (Cantabria)"
+  horario: "Lunes a viernes, de 9:30 a 13:30 y de 16:30 a 20:00. Sábados, de 10:00 a 13:30."
+  whatsapp: "644 52 17 90"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Viajes, url: "/#viajes" }
+  - { texto: Destinos, url: "/#destinos" }
+  - { texto: Cómo trabajamos, url: "/#proceso" }
+  - { texto: Opiniones, url: "/#opiniones" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pide presupuesto, url: "/#presupuesto" }
+seo:
+  titulo: Marea Alta Viajes · Agencia de viajes en Santander
+  descripcion: "Agencia de viajes en Santander: escapadas, viajes de aventura, salidas en grupo y viajes a medida, con asistencia durante todo el viaje."
+  tipo: TravelAgency
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Agencia de viajes · Santander
+    titulo: El mundo empieza en el puerto de al lado.
+    texto: "Escapadas, viajes de aventura y rutas a medida, preparados por gente que ya ha estado allí. Tú eliges el destino; nosotros, que todo salga bien."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Ver próximos viajes, url: "/#viajes" }
+    cta_secundario: { texto: Pide presupuesto, url: "/#presupuesto" }
+
+  viajes:
+    activa: true
+    antetitulo: Próximas salidas
+    titulo: Viajes con fecha y viajes cuando tú quieras
+    texto: "Salidas en grupo pequeño con acompañante y viajes por libre con todo atado. Filtra por tipo de viaje."
+    viajes:
+      - { titulo: Azores en ocho días, destino: "Azores, Portugal", categoria: Naturaleza, duracion: "8 días", fecha: "Salida el 9 de mayo de 2027", precio: "desde 1.390 €", texto: "Lagunas en cráteres, ballenas y pueblos blancos en tres islas del Atlántico.", incluye: "Vuelos desde Santander vía Lisboa; Hotel con desayuno; Coche de alquiler; Salida para ver cetáceos", imagen: /fotos/viaje-1.jpg, destacado: true }
+      - { titulo: Islandia en verano, destino: Islandia, categoria: Aventura, duracion: "10 días", fecha: "Salida el 3 de julio de 2027", precio: "desde 2.450 €", texto: "Cascadas, glaciares y la carretera de la costa sur con el sol de medianoche.", incluye: "Vuelos; Alojamiento en casas de huéspedes; Todoterreno; Guía en castellano", imagen: /fotos/viaje-2.jpg, destacado: false }
+      - { titulo: Marrakech y el desierto, destino: Marruecos, categoria: Aventura, duracion: "6 días", fecha: "Salidas cada mes", precio: "desde 790 €", texto: "Zocos, el Atlas y una noche en campamento entre las dunas de Merzouga.", incluye: "Vuelos; Riad en Marrakech; Ruta en 4x4 con chófer; Noche en el desierto", imagen: /fotos/viaje-3.jpg, destacado: false }
+      - { titulo: Oporto y el Duero, destino: Portugal, categoria: Escapadas, duracion: "4 días", fecha: "Puentes y fines de semana", precio: "desde 420 €", texto: "La Ribeira, bodegas de oporto y un crucero por los viñedos del valle.", incluye: "Hotel céntrico; Crucero por el Duero; Visita a una bodega", imagen: /fotos/viaje-4.jpg, destacado: false }
+      - { titulo: Japón a tu ritmo, destino: Japón, categoria: A medida, duracion: "14 días", fecha: "Todo el año", precio: "Consultar", texto: "Tokio, Kioto y los Alpes japoneses con pase de tren y hoteles elegidos uno a uno.", incluye: "Vuelos; Pase de tren; Hoteles y ryokan; Asistencia en castellano", imagen: /fotos/viaje-5.jpg, destacado: false }
+      - { titulo: Picos de Europa a pie, destino: "Cantabria y Asturias", categoria: Grupos, duracion: "5 días", fecha: "Salida el 12 de junio de 2027", precio: "desde 560 €", texto: "Cinco etapas entre Liébana y Covadonga con la maleta esperándote en cada pueblo.", incluye: "Guía de montaña; Traslado de equipaje; Casas rurales con media pensión", imagen: /fotos/viaje-6.jpg, destacado: false }
+    cta: { texto: "¿No ves tu viaje? Te lo preparamos", url: "/#presupuesto" }
+    etiqueta_destacado: Plazas limitadas
+
+  ventajas:
+    activa: true
+    antetitulo: Por qué con nosotros
+    titulo: Viajamos antes que tú
+    texto: "Somos una agencia pequeña del centro de Santander. Te atendemos en persona y conocemos casi todos los sitios que vendemos."
+    imagen: /fotos/ventajas.jpg
+    items:
+      - { titulo: Lo hemos probado, texto: "Hoteles, guías y rutas que conocemos de primera mano.", icono: brujula }
+      - { titulo: Teléfono 24 horas, texto: "Si algo se tuerce durante el viaje, contestamos a cualquier hora.", icono: telefono }
+      - { titulo: Precio cerrado, texto: "Te decimos qué incluye y qué no antes de pagar nada.", icono: escudo }
+      - { titulo: Salidas desde aquí, texto: "Vuelos desde Santander o Bilbao y traslados al aeropuerto.", icono: avion }
+
+  cifras:
+    activa: true
+    antetitulo: En cifras
+    titulo: Muchos kilómetros a la espalda
+    items:
+      - { titulo: "18", texto: Años organizando viajes }
+      - { titulo: "+60", texto: Destinos en cinco continentes }
+      - { titulo: "4.200", texto: Viajeros el año pasado }
+      - { titulo: "24 h", texto: Asistencia durante el viaje }
+
+  proceso:
+    activa: true
+    antetitulo: Cómo trabajamos
+    titulo: Tu viaje, en cuatro paradas
+    items:
+      - { titulo: Nos cuentas, texto: "Dónde te apetece ir, cuándo, con quién y cuánto quieres gastar.", icono: mensaje }
+      - { titulo: Te proponemos, texto: "En dos o tres días tienes una ruta con precio cerrado y alternativas.", icono: mapa }
+      - { titulo: Lo reservamos, texto: "Vuelos, hoteles, traslados y seguro. Tú solo haces la maleta.", icono: maletin }
+      - { titulo: Viajas tranquilo, texto: "Con la documentación en el móvil y nuestro teléfono siempre a mano.", icono: avion }
+
+  destinos:
+    activa: true
+    antetitulo: Destinos
+    titulo: Adonde más nos piden ir
+    texto: "Cuatro regiones que conocemos bien. Si tu destino no está, pregúntanos."
+    items:
+      - { titulo: Islas del Atlántico, texto: "Azores, Madeira y Canarias.", imagen: /fotos/destino-1.jpg }
+      - { titulo: Norte de Europa, texto: "Islandia, Noruega y Escocia.", imagen: /fotos/destino-2.jpg }
+      - { titulo: Marruecos, texto: "Ciudades imperiales y desierto.", imagen: /fotos/destino-3.jpg }
+      - { titulo: Asia, texto: "Japón, Vietnam y Tailandia.", imagen: /fotos/destino-4.jpg }
+
+  cta:
+    activa: true
+    antetitulo: Tu próximo viaje
+    titulo: "¿Te vienes a ver mundo?"
+    texto: "Cuéntanos qué tienes en mente y en un par de días tienes una propuesta, sin compromiso."
+    imagen: /fotos/cta.jpg
+    cta: { texto: Pide tu presupuesto, url: "/#presupuesto" }
+    cta_secundario: { texto: Escríbenos por WhatsApp, url: "https://wa.me/34644521790" }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que cuentan a la vuelta
+    testimonios:
+      - { texto: "Nos lo dejaron todo atado y aun así tuvimos libertad para improvisar. Las Azores fueron el mejor viaje que hemos hecho.", autor: Lucía y Pablo, nota: "Azores, mayo de 2026" }
+      - { texto: "Se nos canceló un vuelo en Reikiavik y a la media hora teníamos otro. Eso es lo que se paga.", autor: Andrés G., nota: "Islandia, julio de 2025" }
+      - { texto: "Viajamos con dos niños pequeños y pensaron en todo: horarios, hoteles con piscina y trayectos cortos.", autor: Familia Ruiz, nota: "Marruecos, Semana Santa de 2026" }
+      - { texto: "Fui sola por primera vez y me sentí acompañada sin estarlo. Repetiré seguro.", autor: Marta S., nota: "Japón, octubre de 2025" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de hacer la maleta
+    preguntas:
+      - { pregunta: "¿Cuánto cuesta pedir un presupuesto?", respuesta: "Nada. Te preparamos la propuesta sin compromiso y solo pagas si decides reservar." }
+      - { pregunta: "¿Con cuánta antelación tengo que reservar?", respuesta: "Para viajes largos y salidas en grupo, entre tres y seis meses antes. Para escapadas, con dos o tres semanas suele bastar." }
+      - { pregunta: "¿Incluís seguro de viaje?", respuesta: "Todos nuestros viajes llevan seguro básico de asistencia. Te ofrecemos también uno con cancelación por si no puedes viajar." }
+      - { pregunta: "¿Qué pasa si hay un problema durante el viaje?", respuesta: "Tienes un teléfono de asistencia que atendemos las 24 horas. Te ayudamos a cambiar vuelos, hoteles o lo que haga falta." }
+      - { pregunta: "¿Cómo se paga?", respuesta: "Una señal al reservar y el resto un mes antes de la salida. Puedes pagar con tarjeta o por transferencia." }
+
+  presupuesto:
+    activa: true
+    antetitulo: Presupuesto sin compromiso
+    titulo: Cuéntanos tu viaje
+    texto: "Dinos adónde, cuándo y cuántos sois. Te llamamos o te escribimos con una propuesta y un precio cerrado."
+    imagen: /fotos/presupuesto.jpg
+    items:
+      - { titulo: Rellenas el formulario, texto: "Dos minutos y sin datos de pago." }
+      - { titulo: Te contactamos, texto: "En menos de 24 horas laborables." }
+      - { titulo: Recibes tu propuesta, texto: "Con ruta, alternativas y precio cerrado." }
+    tipos_viaje: "Escapada; Viaje a medida; Salida en grupo; Luna de miel; Viaje de empresa"
+    boton: Pedir presupuesto
+    nota: "Sin compromiso. El presupuesto es gratis."
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Pásate por la agencia
+    texto: "Estamos a dos calles del Paseo de Pereda. Ven a tomarte un café con nosotros y hablamos de tu viaje."
+    imagen: /fotos/contacto.jpg
+    horario:
+      - { dia: Lunes a viernes, horas: "9:30 – 13:30 y 16:30 – 20:00" }
+      - { dia: Sábados, horas: "10:00 – 13:30" }
+    boton: Enviar consulta
