@@ -19,6 +19,8 @@ export interface Noticia { fecha: string; titulo: string; texto?: string; url?: 
 export interface Viaje {
   titulo: string; texto: string; destino: string; categoria: string; duracion: string; fecha: string;
   precio: string; incluye: string; imagen: string; destacado: boolean;
+  /** Ficha propia (src/lib/paginas.ts): texto largo, fotos extra y slug opcionales. */
+  detalle?: string; imagenes?: string; slug?: string;
 }
 
 export interface Seccion {
@@ -93,6 +95,9 @@ function viaje(v: Crudo): Viaje {
     incluye: limpio(v.incluye),
     imagen: limpio(v.imagen),
     destacado: v.destacado === true,
+    ...(limpio(v.detalle) && { detalle: String(v.detalle).trim() }),
+    ...(limpio(v.imagenes) && { imagenes: limpio(v.imagenes) }),
+    ...(limpio(v.slug) && { slug: limpio(v.slug) }),
   };
 }
 

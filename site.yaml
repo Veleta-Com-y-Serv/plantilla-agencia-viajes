@@ -51,10 +51,70 @@ secciones:
     titulo: Viajes con fecha y viajes cuando tú quieras
     texto: "Salidas en grupo pequeño con acompañante y viajes por libre con todo atado. Filtra por tipo de viaje."
     viajes:
-      - { titulo: Azores en ocho días, destino: "Azores, Portugal", categoria: Naturaleza, duracion: "8 días", fecha: "Salida el 9 de mayo de 2027", precio: "desde 1.390 €", texto: "Lagunas en cráteres, ballenas y pueblos blancos en tres islas del Atlántico.", incluye: "Vuelos desde Santander vía Lisboa; Hotel con desayuno; Coche de alquiler; Salida para ver cetáceos", imagen: /fotos/viaje-1.jpg, destacado: true }
-      - { titulo: Islandia en verano, destino: Islandia, categoria: Aventura, duracion: "10 días", fecha: "Salida el 3 de julio de 2027", precio: "desde 2.450 €", texto: "Cascadas, glaciares y la carretera de la costa sur con el sol de medianoche.", incluye: "Vuelos; Alojamiento en casas de huéspedes; Todoterreno; Guía en castellano", imagen: /fotos/viaje-2.jpg, destacado: false }
-      - { titulo: Marrakech y el desierto, destino: Marruecos, categoria: Aventura, duracion: "6 días", fecha: "Salidas cada mes", precio: "desde 790 €", texto: "Zocos, el Atlas y una noche en campamento entre las dunas de Merzouga.", incluye: "Vuelos; Riad en Marrakech; Ruta en 4x4 con chófer; Noche en el desierto", imagen: /fotos/viaje-3.jpg, destacado: false }
-      - { titulo: Oporto y el Duero, destino: Portugal, categoria: Escapadas, duracion: "4 días", fecha: "Puentes y fines de semana", precio: "desde 420 €", texto: "La Ribeira, bodegas de oporto y un crucero por los viñedos del valle.", incluye: "Hotel céntrico; Crucero por el Duero; Visita a una bodega", imagen: /fotos/viaje-4.jpg, destacado: false }
+      - titulo: Azores en ocho días
+        destino: "Azores, Portugal"
+        categoria: Naturaleza
+        duracion: "8 días"
+        fecha: "Salida el 9 de mayo de 2027"
+        precio: "desde 1.390 €"
+        texto: "Lagunas en cráteres, ballenas y pueblos blancos en tres islas del Atlántico."
+        incluye: "Vuelos desde Santander vía Lisboa; Hotel con desayuno; Coche de alquiler; Salida para ver cetáceos"
+        imagen: /fotos/viaje-1.jpg
+        destacado: true
+        detalle: |
+          Un viaje pensado para quien quiere naturaleza de verdad sin renunciar a la comodidad. Recorremos tres islas del archipiélago a un ritmo tranquilo, con tiempo para bañarse en aguas termales, caminar junto a las lagunas que ocupan antiguos cráteres y callejear por pueblos de casas blancas y piedra negra.
+
+          La salida es en grupo reducido desde Santander con escala en Lisboa. En destino tienes un coche de alquiler para moverte a tu aire y un hotel con desayuno cada noche, siempre bien situado para empezar la jornada temprano. Una de las mañanas la dedicamos a salir al mar en busca de ballenas y delfines con una embarcación pequeña y guías locales.
+
+          Te dejamos una hoja de ruta con las paradas imprescindibles, los miradores que mejor se ven según la hora y los restaurantes donde probar el cocido de las Furnas y el queso de la tierra. Si prefieres cambiar alguna etapa o alargar la estancia, lo ajustamos antes de reservar y te damos el precio cerrado.
+      - titulo: Islandia en verano
+        destino: Islandia
+        categoria: Aventura
+        duracion: "10 días"
+        fecha: "Salida el 3 de julio de 2027"
+        precio: "desde 2.450 €"
+        texto: "Cascadas, glaciares y la carretera de la costa sur con el sol de medianoche."
+        incluye: "Vuelos; Alojamiento en casas de huéspedes; Todoterreno; Guía en castellano"
+        imagen: /fotos/viaje-2.jpg
+        destacado: false
+        detalle: |
+          Islandia en la época en que casi no anochece. Es un viaje para quienes disfrutan conduciendo despacio, parando donde apetece y dejándose sorprender por un paisaje que cambia cada pocos kilómetros: cascadas que caen desde acantilados verdes, glaciares que se descuelgan hacia el mar y playas de arena negra.
+
+          Recorremos la carretera de la costa sur con un todoterreno que tienes todo el viaje y dormimos en casas de huéspedes pequeñas, de trato familiar, elegidas por su ubicación y por lo bien que se desayuna. Un guía que habla castellano te acompaña en las jornadas más especiales, como la visita a la laguna glaciar y la caminata hasta una lengua de hielo.
+
+          Antes de salir te preparamos un cuaderno con distancias entre etapas, consejos de conducción en pistas y qué ropa llevar para pasar del sol al viento helado en el mismo día. Es una ruta exigente en horas de coche pero muy agradecida, y la hacemos en grupo pequeño para que nadie se sienta apretado.
+      - titulo: Marrakech y el desierto
+        destino: Marruecos
+        categoria: Aventura
+        duracion: "6 días"
+        fecha: "Salidas cada mes"
+        precio: "desde 790 €"
+        texto: "Zocos, el Atlas y una noche en campamento entre las dunas de Merzouga."
+        incluye: "Vuelos; Riad en Marrakech; Ruta en 4x4 con chófer; Noche en el desierto"
+        imagen: /fotos/viaje-3.jpg
+        destacado: false
+        detalle: |
+          Un viaje corto y muy completo para sumergirse en Marruecos sin prisas. Empezamos en Marrakech, alojados en un riad tradicional dentro de la medina, con patio interior, terraza y desayuno de pan recién hecho. Un día entero se dedica a perderse por los zocos, la plaza de Yamaa el Fna y los jardines escondidos tras los muros rojizos.
+
+          Después salimos hacia el Atlas en un todoterreno con chófer que conoce cada curva. Cruzamos puertos de montaña, kasbahs de adobe y valles de palmerales hasta llegar a las dunas de Merzouga, donde pasamos una noche en un campamento con cena bajo las estrellas y paseo en dromedario al atardecer.
+
+          Las salidas son mensuales y el programa admite cambios: puedes añadir una noche más en el desierto o una excursión a la costa. Te explicamos qué ropa y calzado llevar según la estación, cómo regatear sin pasarte y qué costumbres conviene respetar para viajar a gusto.
+      - titulo: Oporto y el Duero
+        destino: Portugal
+        categoria: Escapadas
+        duracion: "4 días"
+        fecha: "Puentes y fines de semana"
+        precio: "desde 420 €"
+        texto: "La Ribeira, bodegas de oporto y un crucero por los viñedos del valle."
+        incluye: "Hotel céntrico; Crucero por el Duero; Visita a una bodega"
+        imagen: /fotos/viaje-4.jpg
+        destacado: false
+        detalle: |
+          La escapada perfecta para un puente o un fin de semana largo. Oporto se recorre bien a pie: la Ribeira junto al río, las cuestas de azulejo azul, la librería de escalera y los puentes de hierro que unen las dos orillas. Te alojas en un hotel céntrico para dejar el coche y moverte sin agobios.
+
+          Uno de los días lo dedicamos al valle del Duero. Subimos a un barco para un crucero tranquilo entre viñedos en terrazas, con comida a bordo y paradas para ver las quintas desde el agua. Por la tarde visitamos una bodega de oporto, con cata guiada de blancos, tintos y añejos y explicación de cómo envejece el vino en barrica.
+
+          Te dejamos recomendaciones de tascas donde comer francesinha y bacalao, de pastelerías que merecen la cola y de rincones para ver la puesta de sol sobre el río. Si viajas en pareja o con amigos, podemos ajustar las horas libres para que cada uno haga su plan.
       - { titulo: Japón a tu ritmo, destino: Japón, categoria: A medida, duracion: "14 días", fecha: "Todo el año", precio: "Consultar", texto: "Tokio, Kioto y los Alpes japoneses con pase de tren y hoteles elegidos uno a uno.", incluye: "Vuelos; Pase de tren; Hoteles y ryokan; Asistencia en castellano", imagen: /fotos/viaje-5.jpg, destacado: false }
       - { titulo: Picos de Europa a pie, destino: "Cantabria y Asturias", categoria: Grupos, duracion: "5 días", fecha: "Salida el 12 de junio de 2027", precio: "desde 560 €", texto: "Cinco etapas entre Liébana y Covadonga con la maleta esperándote en cada pueblo.", incluye: "Guía de montaña; Traslado de equipaje; Casas rurales con media pensión", imagen: /fotos/viaje-6.jpg, destacado: false }
     cta: { texto: "¿No ves tu viaje? Te lo preparamos", url: "/#presupuesto" }

@@ -3,10 +3,12 @@
 // como billetes de embarque (foto arriba, talón troquelado, duración y fecha, precio y botón) en una rejilla de
 // 1/2/3 columnas sobre banda de arena. Filtro por tipo de viaje (`categoria`) si hay dos o más tipos: botones con
 // un JavaScript mínimo; sin JavaScript se ven todos. `destacado: true` lleva el sello `etiqueta_destacado`.
+// Los viajes con `detalle` tienen página propia (/viajes/<slug>/, src/lib/paginas.ts): el título es un enlace «Ver el viaje».
 // El botón de cada viaje va al WhatsApp del negocio con el viaje en el mensaje, o a `cta.url` si no hay WhatsApp.
 // Sin viajes solo queda el titular (o nada si tampoco hay título). Sin precio no hay precio.
 import { seccion, site, cadena, partes, enlace, whatsapp } from '../../data/site';
 import { altFicha } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Seccion from '../ui/Seccion.astro';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
@@ -54,7 +56,8 @@ const columnas = viajes.length >= 3 ? 'md:grid-cols-2 xl:grid-cols-3' : viajes.l
                     {v.destino && (
                       <p class="rotulo inline-flex items-center gap-2 text-[color:var(--sol-texto)]"><Icono nombre="avion" tam={16} />{v.destino}</p>
                     )}
-                    <h3 class="mt-2 text-[1.9rem] md:text-[2.15rem]">{v.titulo}</h3>
+                    <h3 class="mt-2 text-[1.9rem] md:text-[2.15rem]">{enlaceDe(v) ? <a href={enlaceDe(v)} class="billete-enlace">{v.titulo}</a> : v.titulo}</h3>
+                    {enlaceDe(v) && <span class="billete-ver rotulo" aria-hidden="true">Ver el viaje <Icono nombre="flecha" tam={16} /></span>}
                     {v.texto && <p class="suave mt-3">{v.texto}</p>}
                     {incluye.length > 0 && (
                       <ul class="mt-4 grid gap-1.5 text-[.95rem]">

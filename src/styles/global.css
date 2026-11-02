@@ -145,6 +145,12 @@
   .billete-sello { position: absolute; top: 1rem; left: 1rem; padding: .35rem .7rem; background: var(--sol); color: var(--tinta); border-radius: .25rem; font-family: var(--fuente-titulos); font-weight: 700; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
   .billete--destacado { outline: 3px solid var(--sol); outline-offset: -3px; }
   .billete-precio { font-family: var(--fuente-titulos); font-stretch: condensed; font-weight: 700; font-size: 1.75rem; line-height: 1; }
+  .billete-enlace { color: inherit; text-decoration: none; }
+  .billete-enlace::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .billete-enlace:focus-visible { outline: none; }
+  .billete:has(.billete-enlace:focus-visible) { outline: 3px solid var(--sol); outline-offset: -3px; }
+  .billete-ver { display: inline-flex; align-items: center; gap: .3rem; margin-top: .6rem; color: var(--sol-texto); }
+  .billete .btn { position: relative; z-index: 2; }
   .billete img { transition: transform .5s ease; }
   .billete:hover img { transform: scale(1.04); }
 

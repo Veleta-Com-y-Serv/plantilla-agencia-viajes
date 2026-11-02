@@ -62,3 +62,8 @@ rediseñada entera (tanda «ancho completo», fila 15 del brief). Este fichero s
 - [x] `fotos.json` (15) y placeholders.
 - [x] `README.md`, `CLAUDE.md`, `aviso-legal.astro` y `404.astro` con el diseño.
 - [ ] Fotos y previews definitivas (`preview/card.jpg`, `preview/full.jpg`): las genera el paso de fotos.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.
